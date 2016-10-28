@@ -10,10 +10,10 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'>
 
     <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300italic,400,400italic' rel='stylesheet' type='text/css'>
-    <link rel='stylesheet' type='text/css' href='styles/css/main.css'>
+    <link rel='stylesheet' type='text/css' href='lib/styles/main.min.css'>
 </head>
 
-<body>
+<body ng-controller="">
 
     <header>
         <h1>todos</h1>
@@ -26,17 +26,15 @@
                 <input type='text' class='new-todo' placeholder='What needs to be done?'>
             </form>
             <div class="list-container">
-                <script id="todo-template" type="text/x-handlebars-template">
-                  <ul class='items'>
+                <ul class='items'>
                     <li class="line-item">
-                        <input type="checkbox" class="checkbox" {{status}}>
-                        <input type='text' readonly="readonly" class='edit-todo' value='{{text}}'>
+                        <input type="checkbox" class="checkbox">
+                        <input type='text' readonly="readonly" class='edit-todo'>
                         <button class='delete'>X</button>
                     </li>
-                </script>
-            </ul>
+                </ul>
+            </div>
         </div>
-      </div>
         <footer>
             <p class='remaining'><span class='incomplete-items'>0</span> items left</p>
             <button class='clear'>Clear completed</button>
@@ -49,10 +47,11 @@
             </nav>
         </footer>
     </main>
-    <script src="javascript/handlebars-v4.0.5.js"></script>
-    <script src="javascript/jquery-3.1.1.min.js"></script>
-    <script src="javascript/main.js"></script>
-
+    <script src="./node_modules/angular/angular.js"></script>
+    <script src="./node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    <script src="./js/app.js"></script>
+    <script src="./js/todo.controller.js"></script>
+    <script src="./js/storage.service.js"></script>
 
 </body>
 
