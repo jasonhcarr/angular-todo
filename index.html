@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='en' ng-app="todoList">
 
 <head>
     <meta charset='utf-8'>
@@ -10,39 +10,39 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'>
 
     <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300italic,400,400italic' rel='stylesheet' type='text/css'>
-    <link rel='stylesheet' type='text/css' href='lib/styles/main.min.css'>
+    <link rel='stylesheet' type='text/css' href='./styles/main.css'>
 </head>
 
-<body ng-controller="">
+<body>
 
     <header>
         <h1>todos</h1>
     </header>
 
-    <main>
+    <main ng-controller="ToDoCtrl as ctrlr">
         <div class="main-container">
-
-            <form action='' method='post'>
-                <input type='text' class='new-todo' placeholder='What needs to be done?'>
+            <form ng-submit="createNewTodo()">
+                <input ng-model="text" type="text" class='new-todo' placeholder='What needs to be done?'>
             </form>
-            <div class="list-container">
-                <ul class='items'>
-                    <li class="line-item">
-                        <input type="checkbox" class="checkbox">
-                        <input type='text' readonly="readonly" class='edit-todo'>
-                        <button class='delete'>X</button>
-                    </li>
-                </ul>
-            </div>
+
+            <ul class='items'>
+                <li class="line-item" ng-repeat="todo in allTodos track by $index" data-id="{{todo.id}}">
+                    <input type="checkbox" class="checkbox" ng-model="todo.completed"
+                    ng-click="toggleCompleted(todo)">
+                    <input type='text' ng-keydown="triggerUpdate($event, todo)" ng-model="todo.text" ng-readonly="todo.completed" class='edit-todo' value="{{todo.text}}">
+                    <button ng-click="deleteTodo(todo)" class='delete'>X</button>
+                </li>
+            </ul>
         </div>
+
         <footer>
-            <p class='remaining'><span class='incomplete-items'>0</span> items left</p>
-            <button class='clear'>Clear completed</button>
+            <p class='remaining'><span class='incomplete-items'>{{allTodos.length}}</span> items left</p>
+            <button ng-click="clearCompleted()" class='clear'>Clear completed</button>
             <nav>
                 <ul class="show-container">
-                    <li><button class="show all">All</button></li>
-                    <li><button class="show current">Active</button></li>
-                    <li><button class="show completed">Completed</button></li>
+                    <li><button ng-click="showAll()" class="show all">All</button></li>
+                    <li><button ng-click="showActive()" class="show current">Active</button></li>
+                    <li><button ng-click="showCompleted()" class="show completed">Completed</button></li>
                 </ul>
             </nav>
         </footer>
@@ -50,9 +50,9 @@
     <script src="./node_modules/angular/angular.js"></script>
     <script src="./node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
     <script src="./js/app.js"></script>
-    <script src="./js/todo.controller.js"></script>
+    <script src="./js/list-item.factory.js"></script>
     <script src="./js/storage.service.js"></script>
-
+    <script src="./js/todo.controller.js"></script>
 </body>
 
 </html>
